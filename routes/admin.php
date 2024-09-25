@@ -6,6 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UrlShortenerController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,34 @@ Route::middleware('auth:admin')->group(function () {
             //Admin Dashboard
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+
+            Route::any('/shorteners',[UrlShortenerController::class, 'index'])->name('shorteners');
+            Route::prefix('shortener')->group(function () {
+                Route::get('/create',[UrlShortenerController::class, 'create'])->name('shortener.create');
+                Route::post('/store',[UrlShortenerController::class, 'store'])->name('shortener.store');
+                Route::get('/edit',[UrlShortenerController::class, 'edit'])->name('shortener.edit');
+                Route::post('/update',[UrlShortenerController::class, 'update'])->name('shortener.update');
+                Route::get('/delete',[UrlShortenerController::class, 'destroy'])->name('shortener.delete');
+            });
+
+            Route::any('/users',[UserController::class, 'index'])->name('users');
+            Route::prefix('user')->group(function () {
+                Route::get('/create',[UserController::class, 'create'])->name('user.create');
+                Route::post('/store',[UserController::class, 'store'])->name('user.store');
+                Route::get('/edit',[UserController::class, 'edit'])->name('user.edit');
+                Route::post('/update',[UserController::class, 'update'])->name('user.update');
+                Route::get('/delete',[UserController::class, 'destroy'])->name('user.delete');
+            });
+            
+            Route::any('/clients',[ClientController::class, 'index'])->name('clients');
+            Route::prefix('client')->group(function () {
+                Route::get('/create',[ClientController::class, 'create'])->name('client.create');
+                Route::post('/store',[ClientController::class, 'store'])->name('client.store');
+                Route::get('/edit',[ClientController::class, 'edit'])->name('client.edit');
+                Route::post('/update',[ClientController::class, 'update'])->name('client.update');
+                Route::get('/delete',[ClientController::class, 'destroy'])->name('client.delete');
+            });
+
         });
     });
 });

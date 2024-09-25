@@ -13,13 +13,13 @@
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
 
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="{{ route((!empty($url) ? $url : "") . '.profile') }}" class="block px-4 py-2 account-link hover:text-white">Profile</a>
+                    <a href="{{ route((!empty($url) ? $url : '') . '.profile') }}" class="block px-4 py-2 account-link hover:text-white">Profile</a>
 
-                    <a class="block px-4 py-2 account-link hover:text-white" href="{{ route((!empty($url) ? $url : "") . '.logout') }}"
+                    <a class="block px-4 py-2 account-link hover:text-white" href="{{ route((!empty($url) ? $url : '') . '.logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
-                    <form id="logout-form" action="{{ route((!empty($url) ? $url : "") . '.logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route((!empty($url) ? $url : '') . '.logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </div>
@@ -29,7 +29,7 @@
         <!-- Mobile Header & Nav -->
         <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
             <div class="flex items-center justify-between">
-                <a href="{{ route((!empty($url) ? $url : "") . '.dashboard') }}" 
+                <a href="{{ route((!empty($url) ? $url : '') . '.dashboard') }}" 
                     class="text-white text-3xl font-semibold uppercase hover:text-gray-300">
                     {{ (!empty($url) ? strFilter($url) : "") }} Panel
                 </a>
@@ -41,39 +41,44 @@
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a  href="{{ route((!empty($url) ? $url : "") . '.dashboard') }}" 
-                    class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+                <a  href="{{ route((!empty($url) ? $url : '') . '.dashboard') }}" 
+                    class="flex items-center {{ $activeMenu == 'dashboard' ? 'active-nav-link' : '' }} text-white py-4 pl-6 nav-item">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-
-                <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                
+                <a href="{{ route((!empty($url) ? $url : '') . '.shorteners') }}" class="flex items-center {{ $activeMenu == 'shortener' ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-tablet-alt mr-3"></i>
                     URL Shortener
                 </a>
+                
+                @if($url=="admin")
 
-                <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <a href="{{ route('admin.users') }}" class="flex items-center {{ $activeMenu == 'users' ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-users mr-3"></i>
-                    Admins
+                    Users
                 </a>
 
-                <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                
+                <a href="{{ route('admin.clients') }}" class="flex items-center {{ $activeMenu == 'clients' ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-users mr-3"></i>
                     Clients
                 </a>
                 
-                <a href="{{ route((!empty($url) ? $url : "") . '.profile') }}" 
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                @endif
+
+                <a href="{{ route((!empty($url) ? $url : '') . '.profile') }}" 
+                    class="flex items-center {{ $activeMenu == 'dashboard' ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     Profile
                 </a>
 
                 <a  class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item" 
-                    href="{{ route((!empty($url) ? $url : "") . '.logout') }}"
+                    href="{{ route((!empty($url) ? $url : '') . '.logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                 </a>
 
-                <form id="logout-form" action="{{ route((!empty($url) ? $url : "") . '.logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route((!empty($url) ? $url : '') . '.logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </nav>

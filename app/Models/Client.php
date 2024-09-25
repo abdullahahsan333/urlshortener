@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Http\Request;
+
 class Client extends Authenticatable
 {
     use Notifiable, HasFactory, SoftDeletes;
@@ -20,4 +22,12 @@ class Client extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    static function getAllClient(Request $request) {
+        $where = [];
+        if(!empty($request->status)) {
+            $where['status'] = $request->status;
+        }
+        return Client::where($where)->orderBy('id', 'DESC')->get();
+    }
 }

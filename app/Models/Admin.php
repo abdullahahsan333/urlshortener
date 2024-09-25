@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Http\Request;
+
 class Admin extends Authenticatable
 {
     use Notifiable, HasFactory, SoftDeletes;
@@ -20,4 +22,12 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    static function getAllUser(Request $request) {
+        $where = [];
+        if(!empty($request->status)) {
+            $where['status'] = $request->status;
+        }
+        return Admin::where($where)->orderBy('id', 'DESC')->get();
+    }
 }

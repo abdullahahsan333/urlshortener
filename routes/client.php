@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Client\ClientDashboardController;
+use App\Http\Controllers\Client\UrlShortenerController;
+use App\Http\Controllers\Client\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,17 @@ Route::middleware('auth:client')->group(function () {
             //Admin Dashboard 
             Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
             Route::get('/profile', [ClientDashboardController::class, 'profile'])->name('profile');
+
+
+            Route::any('/shorteners',[UrlShortenerController::class, 'index'])->name('shorteners');
+            Route::prefix('shortener')->group(function () {
+                Route::get('/create',[UrlShortenerController::class, 'create'])->name('shortener.create');
+                Route::post('/store',[UrlShortenerController::class, 'store'])->name('shortener.store');
+                Route::get('/edit',[UrlShortenerController::class, 'edit'])->name('shortener.edit');
+                Route::post('/update',[UrlShortenerController::class, 'update'])->name('shortener.update');
+                Route::get('/delete',[UrlShortenerController::class, 'destroy'])->name('shortener.delete');
+            });
+
         });
     });
 });
