@@ -26,9 +26,9 @@ Route::get('/client', function () {
 Route::prefix('/client')->group(function () {
     Route::get('/login', [LoginController::class, 'showClientLoginForm'])->name('client.login');
     Route::post('/login', [LoginController::class, 'clientLogin']);
-    Route::post('/logout', [LoginController::class, 'clientLogout'])->name('client.logout');
     Route::get('/register', [RegisterController::class, 'showClientRegisterForm'])->name('client.register');
     Route::post('/register', [RegisterController::class, 'clientRegister']);
+    Route::post('/logout', [LoginController::class, 'clientLogout'])->name('client.logout');
 });
 
 // User Login Page Route

@@ -38,6 +38,7 @@ Route::middleware('auth:admin')->group(function () {
 
             //Admin Dashboard
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
         });
     });
 });

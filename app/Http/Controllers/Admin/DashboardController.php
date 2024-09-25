@@ -19,4 +19,9 @@ class DashboardController extends Controller
         return view('admin.dashboard', $this->data);
     }
 
+    public function profile()
+    {
+        return view('admin.profile', $this->data);
+    }
+
 }

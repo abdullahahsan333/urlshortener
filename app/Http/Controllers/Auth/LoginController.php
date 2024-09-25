@@ -12,8 +12,8 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
-        $this->middleware('guest:client')->except('logout');
+        $this->middleware('guest:admin')->except('adminLogout');
+        $this->middleware('guest:client')->except('clientLogout');
     }
     
     public function showAdminLoginForm()
@@ -36,7 +36,7 @@ class LoginController extends Controller
 
             flash()->success('Admin Login successful.');
 
-            return redirect()->intended('admin/dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         flash()->error('The provided credentials do not match our records.');
@@ -64,13 +64,14 @@ class LoginController extends Controller
 
             flash()->success('Client Login successful.');
 
-            return redirect()->intended('client/dashboard');
+            return redirect()->route('client.dashboard');
         }
 
         flash()->error('The provided credentials do not match our records.');
 
         return redirect()->back()->onlyInput('email');
     }
+
     
     public function adminLogout(Request $request)
     {
@@ -81,7 +82,7 @@ class LoginController extends Controller
 
         flash()->success('Admin Logout successful.');
 
-        return redirect()->intended('admin/login');
+        return redirect()->route('admin.login');
     }
 
     
@@ -94,7 +95,7 @@ class LoginController extends Controller
 
         flash()->success('Client Logout successful.');
 
-        return redirect()->intended('client/login');
+        return redirect()->route('client.login');
     }
 
 }

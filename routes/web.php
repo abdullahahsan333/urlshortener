@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 
 // Home Page Route
 Route::get('/', function () {
-    return redirect()->route('/');
+    return redirect()->route('home');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
