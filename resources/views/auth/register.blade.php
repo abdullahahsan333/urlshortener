@@ -6,7 +6,7 @@
 
 <div class="flex justify-center">
 
-    <div class="w-full lg:w-1/2 mt-6 pl-0 lg:pl-2">
+    <div class="w-full lg:w-1/3 mt-6 pl-0 lg:pl-2">
         <p class="text-xl pb-6 flex items-center">
             <i class="fas fa-list mr-3"></i> {{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }} Form
         </p>
