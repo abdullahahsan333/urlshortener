@@ -9,7 +9,7 @@
             Add Shortener
         </p>
 
-        <a href="{{ route('admin.shorteners') }}" class="w-48 bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg hover:bg-gray-300 flex items-center gap-2 justify-center">
+        <a href="{{ route('admin.shorteners') }}" class="w-48 text-white bg-brand-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg flex items-center gap-2 justify-center">
             <i class="fas fa-list mr-3"></i>
             All Url
         </a>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="mt-6">
-                    <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Url Shortener</button>
+                    <button class="px-4 py-1 text-white font-light bg-brand-btn rounded" type="submit">Url Shortener</button>
                 </div>
             </div>
 

@@ -41,7 +41,7 @@ Route::middleware('auth:client')->group(function () {
             //Admin Dashboard 
             Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
             Route::get('/profile', [ClientDashboardController::class, 'profile'])->name('profile');
-            Route::get('/profile-update', [ClientDashboardController::class, 'update'])->name('profile-update');
+            Route::post('/profile-update', [ClientDashboardController::class, 'update'])->name('profile-update');
 
 
             Route::any('/shorteners',[UrlShortenerController::class, 'index'])->name('shorteners');

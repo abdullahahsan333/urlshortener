@@ -43,17 +43,9 @@
                             <textarea class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded" autocorrect="off" spellcheck="false" autocomplete="off"
                                 id="address" name="address" rows="3" placeholder="Your Address" aria-label="Email">{{ (!empty($info->address) ? $info->address : '') }}</textarea>
                         </div>
-
-                        <div class="mt-2">
-                            <label class="mb-4 block text-sm text-gray-600" for="status">Status</label>
-                            <select class="w-full px-5 h-16 text-gray-700 bg-gray-200 rounded" id="status" name="status">
-                                <option value="1" {{ ($info->status == 1) ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ ($info->status == 0) ? 'selected' : '' }}>Inactive</option>
-                            </select>
-                        </div>
         
                         <div class="mt-6">
-                            <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Update</button>
+                            <button class="px-4 py-1 text-white font-light bg-brand-btn rounded" type="submit">Update</button>
                         </div>
                     </div>
                 </div>

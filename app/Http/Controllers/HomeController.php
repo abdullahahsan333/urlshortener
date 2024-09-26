@@ -19,6 +19,10 @@ class HomeController extends Controller
     public function redirectUrl($short) {
         $data = UrlShorter::where('short_url', $short)->first();
 
+        $hit = $data->hit + 1;
+
+        UrlShorter::where('id', $data->id)->update(['hit' => $hit]);
+
         return redirect($data->main_url);
     }
 

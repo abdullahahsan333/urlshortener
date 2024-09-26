@@ -5,10 +5,10 @@
 <div class="w-full">
     <div class="flex items-center justify-between">
         <p class="text-xl pb-3">
-            <i class="fas fa-list mr-3"></i> All Users
+            All Users
         </p>
 
-        <a href="{{ route('admin.user.create') }}" class="w-48 bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg hover:bg-gray-300 flex items-center gap-2 justify-center">
+        <a href="{{ route('admin.user.create') }}" class="w-48 text-white bg-brand-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg flex items-center gap-2 justify-center">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
             Add New User
         </a>

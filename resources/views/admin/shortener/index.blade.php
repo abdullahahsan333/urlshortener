@@ -5,10 +5,10 @@
 <div class="w-full">
     <div class="flex items-center justify-between">
         <p class="text-xl pb-3">
-            <i class="fas fa-list mr-3"></i> All Shorteners
+            All Shorteners
         </p>
 
-        <a href="{{ route('admin.shortener.create') }}" class="w-48 bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg hover:bg-gray-300 flex items-center gap-2 justify-center">
+        <a href="{{ route('admin.shortener.create') }}" class="w-48 bg-brand-btn text-white font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg flex items-center gap-2 justify-center">
             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                 <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>
             </svg>
@@ -25,11 +25,19 @@
                     </th>
 
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        User Info
+                    </th>
+
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Long URL
                     </th>
 
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Short URL
+                    </th>
+
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Click
                     </th>
 
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -56,7 +64,22 @@
                             $textclass = "text-red-900";
                             $bgClass = "bg-red-200";
                             $status = 'Inactive';
-                        }                    
+                        }
+
+                        $avatar = $userName = $privilege =  null;
+                        if(!empty($shortener->admin)) {
+                            $avatar = asset($shortener->admin->avatar);
+                            $userName = $shortener->admin->name;
+                            $privilege = 'Admin';
+                        } elseif (!empty($shortener->client)) {
+                            $avatar = asset($shortener->client->avatar);
+                            $userName = $shortener->client->name;
+                            $privilege = 'Client';
+                        } else {
+                            $avatar = asset('assets/images/user.webp');
+                            $userName = 'From Website';
+                            $privilege = 'Not Register';
+                        }
                     @endphp
                     <tr>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -64,7 +87,25 @@
                         </td>
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ $shortener->main_url }}
+                            <div class="flex items-center gap-2">
+                                <div class="flex-shrink-0 w-10 h-10">
+                                    <img class="w-full h-full rounded-full" src="{{ $avatar }}" alt="" />
+                                </div>
+                                <div class="">
+                                    <p class="text-gray-900 whitespace-no-wrap">
+                                        {{ strFilter($userName) }}
+                                    </p>
+                                    <p class="text-gray-600">
+                                        <small>- {{ strFilter($privilege) }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            <p class="">
+                                {{ $shortener->main_url }}
+                            </p>
                         </td>
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -73,6 +114,10 @@
                                     {{ url('/short',$shortener->short_url) }}
                                 </a>
                             </p>
+                        </td>
+
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ (!empty($shortener->hit) ? $shortener->hit : 0) }}
                         </td>
                         
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">

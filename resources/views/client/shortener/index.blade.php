@@ -22,7 +22,7 @@
                         </div>
         
                         <div class="mt-6">
-                            <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Url Shortener</button>
+                            <button class="px-4 py-1 text-white font-light bg-brand-btn rounded" type="submit">Url Shortener</button>
                         </div>
                     </form>
                 </div>
@@ -49,6 +49,10 @@
                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Short URL
                             </th>
+
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Click
+                            </th>
         
                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Action
@@ -73,6 +77,10 @@
                                             {{ url('/short',$shortener->short_url) }}
                                         </a>
                                     </p>
+                                </td>
+
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                    {{ (!empty($shortener->hit) ? $shortener->hit : 0) }}
                                 </td>
         
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">

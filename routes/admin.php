@@ -42,7 +42,7 @@ Route::middleware('auth:admin')->group(function () {
             //Admin Dashboard
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
-            Route::get('/profile-update', [DashboardController::class, 'update'])->name('profile-update');
+            Route::post('/profile-update', [DashboardController::class, 'update'])->name('profile-update');
 
             Route::any('/shorteners',[UrlShortenerController::class, 'index'])->name('shorteners');
             Route::prefix('shortener')->group(function () {
