@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('url_shorters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('mobile');
-            $table->string('address');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->text('avatar')->nullable();
+
+            $table->integer('admin_id')->nullable();
+            $table->integer('client_id')->nullable();
+            $table->text('main_url');
+            $table->string('short_url');
+            $table->integer('hit')->default(1);
             $table->integer('status')->default(1);
-            $table->rememberToken();
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('url_shorters');
     }
 };

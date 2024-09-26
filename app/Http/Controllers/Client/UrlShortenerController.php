@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\UrlShorter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UrlShortenerController extends Controller
 {
@@ -17,15 +19,9 @@ class UrlShortenerController extends Controller
      */
     public function index()
     {
-        return view('client.shortener.index', $this->data);
-    }
+        $this->data['results'] = UrlShorter::getAllUrlForClient(getClientInfo()->id);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('client.shortener.index', $this->data);
     }
 
     /**
@@ -33,38 +29,41 @@ class UrlShortenerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'main_url' => 'required|url',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            flash()->error('Please fill all required fields correctly.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $shortUrl = generateUniqueCode();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if(!UrlShorter::where('short_url', $shortUrl)->exists()) {
+            $data = new UrlShorter;
+    
+            $data->client_id    = getClientInfo()->id;
+            $data->main_url     = $request->main_url;
+            $data->short_url    = $shortUrl;
 
+            $data->save();
+        }
+
+        flash()->success('Your Long Url Shortener successfully.');
+        return redirect()->route('client.shorteners');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $data = UrlShorter::find($id);
+
+        $data->delete();
+
+        flash()->success('This Url delete successfully.', 'Delete');
+
+        return redirect()->back();
     }
 }

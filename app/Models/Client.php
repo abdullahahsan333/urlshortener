@@ -30,4 +30,8 @@ class Client extends Authenticatable
         }
         return Client::where($where)->orderBy('id', 'DESC')->get();
     }
+
+    static function getClient($id) {
+        return Client::find($id);
+    }
 }

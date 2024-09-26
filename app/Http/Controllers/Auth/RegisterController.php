@@ -33,6 +33,17 @@ class RegisterController extends Controller
 
     public function adminRegister(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:admins'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if ($validator->fails()) {
+            flash()->error('Please fill all required fields correctly.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         if(!Admin::where('email', $request->email)->exists()) {
             $data = new Admin;
             
@@ -66,6 +77,17 @@ class RegisterController extends Controller
     
     public function clientRegister(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:clients'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        if ($validator->fails()) {
+            flash()->error('Please fill all required fields correctly.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         if(!Client::where('email', $request->email)->exists()) {
             $data = new Client;
             

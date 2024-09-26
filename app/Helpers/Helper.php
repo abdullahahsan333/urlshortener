@@ -1,4 +1,6 @@
 <?php
+use \Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Facades\Auth;
 
     /* flash message */
     if (!function_exists('flash')) {
@@ -31,7 +33,7 @@
         //         'placeholder'     => '',
         //     ];
 
-        //     $siteInfo = \Illuminate\Support\Facades\DB::table('settings')->whereNotIn('meta_key')->get();
+        //     $siteInfo = DB::table('settings')->whereNotIn('meta_key')->get();
         //     if (!empty($siteInfo)) {
         //         foreach ($siteInfo as $row) {
         //             $data[$row->meta_key] = $row->meta_value;
@@ -44,14 +46,29 @@
     if (!function_exists('getAdminInfo')) {
         function getAdminInfo()
         {
-            return \Illuminate\Support\Facades\Auth::admin();
+            return Auth::guard('admin')->user();
         }
     }
 
     if (!function_exists('getClientInfo')) {
         function getClientInfo()
         {
-            return \Illuminate\Support\Facades\Auth::client();
+            return Auth::guard('client')->user();
+        }
+    }
+
+    // Function to generate unique Code
+    if (!function_exists('generateUniqueCode')) {
+        function generateUniqueCode() {
+            do {
+                // Generate a random alphanumeric string of length 8
+                $code = substr(str_shuffle(str_repeat('abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 8)), 0, 8);
+
+                // Check if the code already exists in the database
+                $urlCodeExists = DB::table('url_shorters')->where('short_url', $code)->exists();
+            } while ($urlCodeExists);
+
+            return $code;
         }
     }
 

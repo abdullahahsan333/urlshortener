@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('mobile');
+            $table->string('address');
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('avatar')->nullable();
             $table->integer('status')->default(1);
             $table->rememberToken();
             $table->softDeletes();

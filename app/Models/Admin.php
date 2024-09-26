@@ -30,4 +30,8 @@ class Admin extends Authenticatable
         }
         return Admin::where($where)->orderBy('id', 'DESC')->get();
     }
+
+    static function getUser($id) {
+        return Admin::find($id);
+    }
 }

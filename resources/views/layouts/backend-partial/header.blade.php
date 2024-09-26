@@ -1,22 +1,44 @@
+@php
+    $avatar = 'assets/images/user.webp';
+    if($url == 'admin') {
+        $avatar = getAdminInfo()->avatar;
+    } else {
+        $avatar = getClientInfo()->avatar;
+    }
 
-
-
+    $userName = '';
+    if($url == 'admin') {
+        $userName = strFilter(getAdminInfo()->name);
+    } else {
+        $userName = strFilter(getClientInfo()->name);
+    }
+@endphp
 
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
             <div class="w-1/2"></div>
             <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
                 <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                    <img src="{{ asset('assets/images/user.webp') }}">
+                    <img src="{{ asset($avatar) }}">
                 </button>
 
                 <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
 
-                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
-                    <a href="{{ route((!empty($url) ? $url : '') . '.profile') }}" class="block px-4 py-2 account-link hover:text-white">Profile</a>
+                <div x-show="isOpen" class="absolute w-52 bg-white rounded-lg shadow-lg py-2 mt-16">
+                    <div class="border-b-2 border-gray-500 pb-1 mb-1">
+                        <p class="px-4 py-2 account-link hover:text-white">
+                            {{ $userName }}
+                        </p>
+                    </div>
 
-                    <a class="block px-4 py-2 account-link hover:text-white" href="{{ route((!empty($url) ? $url : '') . '.logout') }}"
+                    <a href="{{ route((!empty($url) ? $url : '') . '.profile') }}" class="flex justify-start items-center gap-3 px-4 py-2 account-link hover:text-white">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+
+                    <a class="flex justify-start items-center gap-3 px-4 py-2 account-link hover:text-white" href="{{ route((!empty($url) ? $url : '') . '.logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-width="2" d="M13,9 L13,2 L1,2 L1,22 L13,22 L13,15 M22,12 L5,12 M17,7 L22,12 L17,17"></path></svg>
                         {{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route((!empty($url) ? $url : '') . '.logout') }}" method="POST" style="display: none;">

@@ -41,15 +41,13 @@ Route::middleware('auth:client')->group(function () {
             //Admin Dashboard 
             Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
             Route::get('/profile', [ClientDashboardController::class, 'profile'])->name('profile');
+            Route::get('/profile-update', [ClientDashboardController::class, 'update'])->name('profile-update');
 
 
             Route::any('/shorteners',[UrlShortenerController::class, 'index'])->name('shorteners');
             Route::prefix('shortener')->group(function () {
-                Route::get('/create',[UrlShortenerController::class, 'create'])->name('shortener.create');
                 Route::post('/store',[UrlShortenerController::class, 'store'])->name('shortener.store');
-                Route::get('/edit',[UrlShortenerController::class, 'edit'])->name('shortener.edit');
-                Route::post('/update',[UrlShortenerController::class, 'update'])->name('shortener.update');
-                Route::get('/delete',[UrlShortenerController::class, 'destroy'])->name('shortener.delete');
+                Route::get('/delete/{id}',[UrlShortenerController::class, 'destroy'])->name('shortener.delete');
             });
 
         });

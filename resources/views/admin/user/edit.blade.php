@@ -5,13 +5,18 @@
 <div class="w-full">
     <div class="flex items-center justify-between">
         <p class="text-xl pb-3">
-            <i class="fas fa-user mr-3"></i>
-            Profile
+            <i class="fas fa-edit mr-3"></i>
+            Edit User
         </p>
+
+        <a href="{{ route('admin.users') }}" class="w-48 bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg hover:bg-gray-300 flex items-center gap-2 justify-center">
+            <i class="fas fa-list mr-3"></i>
+            All Users
+        </a>
     </div>
 
     <div class="bg-white overflow-auto mt-3">
-        <form action="{{ route('admin.profile-update') }}" method="POST" enctype="multipart/form-data" class="p-10 bg-white rounded shadow-xl">
+        <form action="{{ route('admin.user.update') }}" method="POST" enctype="multipart/form-data" class="p-10 bg-white rounded shadow-xl">
             @csrf
 
             <input type="hidden" hidden name="id" value="{{ $info->id }}">
