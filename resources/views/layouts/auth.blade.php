@@ -24,6 +24,9 @@
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
+
+        .bg-brand-btn { background: #3d68ff; }
+        .bg-brand-btn:hover { background: #1947ee; }
     </style>
     @stack('headerPartial')
 
@@ -37,12 +40,9 @@
                     @yield('content')
                 </main>
 
-                <footer class="w-full bg-white text-right p-4 flex justify-between">
+                <footer class="w-full bg-white text-right p-4 flex justify-center">
                     <p class="fs-14">
-                        Developed by <a target="_blank" href="{{ url('/') }}" class="underline">Abdullah Al Ahsan</a>.
-                    </p>
-                    <p class="fs-14">
-                        ©{{ Date('Y') }}. <a href="https://devzet.com/" target="_blank" class="underline">Devzet LLC</a>. All rights reserved.
+                        Developed by <a target="_blank" href="https://www.linkedin.com/in/devabdullah333/" class="underline">Abdullah Al Ahsan</a>.
                     </p>
                 </footer>
 

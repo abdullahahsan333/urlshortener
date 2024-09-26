@@ -23,3 +23,5 @@ Route::get('/', function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
     
 Route::get('/short/{short}', [HomeController::class, 'redirectUrl']);
+
+Route::post('/short/store', [HomeController::class, 'shortStore']);

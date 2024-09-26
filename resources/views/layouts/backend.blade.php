@@ -40,8 +40,8 @@
 
         @include('layouts.backend-partial.header')
 
-        <div class="w-full overflow-x-hidden border-t flex flex-col">
-            <main class="w-full flex-grow p-6">
+        <div class="w-full overflow-x-hidden border-t flex flex-col mb-7">
+            <main class="w-full flex-grow p-6 mb-7">
                 @yield('content')
             </main>
 
