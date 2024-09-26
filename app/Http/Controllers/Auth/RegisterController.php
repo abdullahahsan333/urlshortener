@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
+
 use App\Models\Admin;
 use App\Models\Client;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+
+    protected $redirectTo = '/';
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -70,7 +73,7 @@ class RegisterController extends Controller
             }
         } else {
             flash()->warning('Admin already Exists!');
-            return redirect()->route('login');
+            return redirect()->route('home');
         }
     }
 

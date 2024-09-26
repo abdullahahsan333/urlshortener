@@ -21,11 +21,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if ($guard == "admin" && Auth::guard($guard)->check()) {
-                return redirect('/admin');
+                return redirect('/admin/dashboard');
             }
 
             if ($guard == "client" && Auth::guard($guard)->check()) {
-                return redirect('/client');
+                return redirect('/client/dashboard');
             }
 
             if (Auth::guard($guard)->check()) {

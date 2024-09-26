@@ -7,7 +7,6 @@ use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\Client\UrlShortenerController;
-use App\Http\Controllers\Client\UserController;
 
 /*
 |--------------------------------------------------------------------------
